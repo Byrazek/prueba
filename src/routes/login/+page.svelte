@@ -14,40 +14,6 @@
       spinner=false
     },2000)
     console.log(formData.email)
-  //   try {
-  //     spinner = true
-  //     const response = await fetch(API_URL + '/api/users', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(formData)
-  //     });
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       window.location.href = "/admin"
-  //       // if (data.message == "parsecorrect") {
-  //       //   if (data.data.admin == true) {
-  //       //     window.location.href = "/admin"
-  //       //   } else if(data.data.admin == false){
-  //       //     window.location.href = "/"
-  //       //   }
-          
-  //       // } else if(data.message == "parseincorrect") {
-  //       //   spinner = false
-  //       //   incorrect = true
-  //       // } else {
-  //       //   console.log("Error de inicio de sesion. Prueba de nuevo o contacta con administracion")
-  //       // }
-  //     } else {
-  //       console.log("Inicio de sesion incorrecto. Intentalo de nuevo")
-  //       console.log("o no se han podido enviar los datos al servidor. Intentalo de nuevo o contacta con administración")
-  //       spinner = false
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
   }
 
 </script>

@@ -1,4 +1,3 @@
-import { extname } from 'path';
 const API_URL = "http://localhost:5038"
 
 /** @type {import('./$types').Actions} */
