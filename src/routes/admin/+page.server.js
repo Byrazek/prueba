@@ -1,4 +1,3 @@
-import { writeFile } from 'node:fs/promises';
 import { extname } from 'path';
 const API_URL = "http://localhost:5038"
 
