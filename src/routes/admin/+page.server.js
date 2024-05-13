@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5038"
+const API_URL = "http://84.120.85.204:5038"
 
 /** @type {import('./$types').Actions} */
 export const actions = {
