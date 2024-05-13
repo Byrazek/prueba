@@ -22,7 +22,6 @@ export const actions = {
       let privilege = false
       if (data.privilege === 'admin') {
         privilege = true
-        page = '/admin'
       }
       const tokenPayload = {
       email: email,
