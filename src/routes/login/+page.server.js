@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 const JWT_SECRET_KEY = 'babys2024'
-const API_URL = 'http://84.120.85.204:5038'
+const API_URL = 'http://localhost:5038'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
