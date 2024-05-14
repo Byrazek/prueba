@@ -6,7 +6,7 @@
   // let searchParams = {};
   let currentPath
   let currentPathPart
-  let API_URL = "http://localhost:5038"
+  let API_URL = "http://84.120.85.204:5038"
   let product = []
   let source
 
