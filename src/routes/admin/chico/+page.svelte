@@ -4,11 +4,11 @@
     import Layout from '../../layoutAdmin.svelte'
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { onMount } from "svelte";
-    let API_URL = "http://localhost:5038/"
+    import {API_URL} from '/src/config.js'
     let bebes = []
   
     function babys() {
-      fetch(API_URL + "api/chico")
+      fetch(API_URL + "/api/chico")
       .then(response=>response.json())
       .then(data=>{
         bebes = data
@@ -21,7 +21,7 @@
     async function deleteProduct(id) {
       try {
         const table = 'chico'
-        let ruta = 'api/delete?id=' + id + '&table=' + table;
+        let ruta = '/api/delete?id=' + id + '&table=' + table;
         const res = await fetch(API_URL + ruta, {
           method: 'DELETE'
         });

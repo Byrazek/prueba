@@ -4,11 +4,11 @@
   import Layout from '../../layoutAdmin.svelte'
   import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { onMount } from "svelte";
-  let API_URL = "http://localhost:5038/"
+  import {API_URL} from '/src/config.js'
   let bebes = []
 
   function babys() {
-    fetch(API_URL + "api/babys")
+    fetch(API_URL + "/api/babys")
     .then(response=>response.json())
     .then(data=>{
       bebes = data

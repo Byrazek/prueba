@@ -6,7 +6,7 @@
   // let searchParams = {};
   let currentPath
   let currentPathPart
-  let API_URL = "http://localhost:5038"
+  import {API_URL} from '/src/config.js'
   let product = []
   let source
 

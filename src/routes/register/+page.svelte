@@ -1,6 +1,6 @@
 <script>
   import Layout from '../layout.svelte'
-  let API_URL = "http://localhost:5038"
+  import {API_URL} from '/src/config.js'
   let formData = {
     email: "",
     password: "",

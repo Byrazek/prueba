@@ -1,6 +1,6 @@
 <script>
-// @ts-nocheck
   import { Button, Modal, Label, Input, Select } from 'flowbite-svelte';
+  import {API_URL} from '/src/config.js'
   let formModal = false;
 
   let options = [
@@ -9,6 +9,50 @@
     { value: 'bebes', name: 'Bebes' },
     { value: 'chica', name: 'Chica' },
   ];
+
+  let file
+
+  async function handleFile(event) {
+    console.log(event.target.files)
+    if (event.target.files && event.target.files.length > 0) {
+      file = event.target.files[0];
+    } else {
+      console.error('No se seleccionó ningún archivo');
+    }
+  }
+
+  let formulario = {
+    name:'',
+    table:'',
+    description:'',
+    price:''
+  }
+
+
+  async function handleSubmit() {
+
+    console.log(file)
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('name', formulario.name)
+    formData.append('price', formulario.price)
+    formData.append('table', formulario.table)
+    formData.append('description', formulario.description)
+    try { 
+      const response = await fetch(API_URL + '/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+      if (response.ok) {
+        console.log('Archivo subido con éxito.');
+        formModal = false
+      } else {
+        console.error('Error al subir el archivo.');
+      }
+    } catch (error) {
+      console.error('Error de red:', error);
+    }
+  }
   
 </script>
 
@@ -96,25 +140,25 @@
           </a>
         </li>
           <Modal bind:open={formModal} size="sm" autoclose={false} class="w-full">
-            <form class="flex flex-col space-y-6" method="post" enctype="multipart/form-data">
+            <form class="flex flex-col space-y-6" on:submit={handleSubmit} enctype="multipart/form-data">
               <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Añadir Producto<span class="px-2 py-0.5 ml-4 text-xs font-medium tracking-wide text-white bg-green-400 rounded-full">new</span></h3>
               <Label class="space-y-2">
                 <span>Producto</span>
-                <Input type="text" name="name" placeholder="Nombre del producto"/>
+                <Input type="text" name="name" placeholder="Nombre del producto" bind:value={formulario.name}/>
               </Label>
               <div class="flex justify-around">
                 <Label>
                   Seleccionar pagina
-                  <Select class="mt-2 w-40 p-2" name="table" size="sm" items={options}/>
+                  <Select class="mt-2 w-40 p-2" name="table" size="sm" items={options} bind:value={formulario.table}/>
                 </Label>
                 <Label class="space-y-2">
                   <span class="text-center">Precio</span>
-                  <Input type="text" name="price" placeholder="€"/>
+                  <Input type="text" name="price" placeholder="€" bind:value={formulario.price}/>
                 </Label>
               </div>
               <Label class="space-y-2">
                 <span>Descripción del producto</span>
-                <Input type="textarea" name="description" placeholder="Descripcion" />
+                <Input type="textarea" name="description" placeholder="Descripcion" bind:value={formulario.description}/>
               </Label>
               <div class="w-full h-60 py-9 bg-gray-50 rounded-2xl border border-gray-300 gap-3 grid border-dashed">
 
@@ -131,7 +175,7 @@
                   <h4 class="text-center text-gray-900 text-sm font-medium leading-snug">Seleccione su archivo aquí o</h4>
                   <div class="flex items-center justify-center">
                     <label>
-                      <input type="file" name="file" hidden/>
+                      <input type="file" name="image" accept="image/*" hidden on:change={handleFile}/>
                       <div class="flex w-28 h-9 px-2 flex-col bg-indigo-600 rounded-full shadow text-white text-xs font-semibold leading-4 items-center justify-center cursor-pointer focus:outline-none">Choose File</div>
                     </label>
                   </div>

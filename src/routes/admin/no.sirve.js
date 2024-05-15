@@ -1,4 +1,4 @@
-const API_URL = "http://84.120.85.204:5038"
+import {API_URL} from '/src/config.js'
 
 /** @type {import('./$types').Actions} */
 export const actions = {

@@ -2,11 +2,11 @@
 	// @ts-nocheck
   import Layout from '../layout.svelte'
 	import { onMount } from "svelte";
-  let API_URL = "http://84.120.85.204:5038:5038/"
+  import {API_URL} from '/src/config.js'
   let bebes = []
 
   function babys() {
-    fetch(API_URL + "api/babys")
+    fetch(API_URL + "/api/babys")
     .then(response=>response.json())
     .then(data=>{
       bebes = data

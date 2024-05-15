@@ -4,10 +4,18 @@ import cors from 'cors'
 import bcrypt from 'bcrypt'
 import { redirect } from "@sveltejs/kit";
 import jwt from 'jsonwebtoken'
+import multer from 'multer'
+import path from 'path'
+import fs from 'fs'
 const app = express();
 const uri = "mongodb+srv://Ivan:150600zz@cluster0.ylvijyz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 const JWT_SECRET_KEY = 'babys2024'
 var loggedUser = false
+
+let Verification = {
+  user:'',
+  privilege:''
+}
 
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle = async ({ event, resolve }) => {
@@ -20,12 +28,7 @@ export const handle = async ({ event, resolve }) => {
       }else{
         try {
           const access = jwt.verify(_token, JWT_SECRET_KEY)
-          let admin = false
-          // @ts-ignore
-          if (access.admin === true) {
-            admin = true
-          }
-          if (!admin) {
+          if (access.admin !== 'admin') {
             throw redirect(302, '/login');
           }
         } catch (error) {
@@ -36,9 +39,20 @@ export const handle = async ({ event, resolve }) => {
     }
 
     if (event.route.id?.startsWith("/logout")) {
-      event.cookies.delete('jwt')
+      event.cookies.delete('jwt', {path:'/'})
       loggedUser = false
-      throw redirect(302, '/')
+    }
+
+    if (event.route.id?.startsWith("/login/verify")) {
+      const tokenPayload = {
+        email: Verification.user,
+        admin: Verification.privilege
+      }
+      console.log('/verificacion de usuarios')
+      const token_ = jwt.sign(tokenPayload, JWT_SECRET_KEY)
+      event.cookies.set('jwt', token_, {path: '/'})
+      loggedUser = true
+      // throw redirect(302, '/')
     }
   const theme = event.cookies.get("siteTheme");
 
@@ -58,13 +72,58 @@ var database
  * @type {MongoClient}
  */
 var client
-const PORT = process.env.PORT || 5038;
-
+const PORT = process.env.PORT || 3000;
 
 // Admitir peticiones de todos distinto servidor
 app.use(cors())
 // Utiliza el middleware express.json() para analizar los cuerpos de las solicitudes con formato JSON
 app.use(express.json())
+
+const upload = multer({
+  dest: 'static/' // Carpeta donde se guardarán los archivos subidos
+});
+
+app.post('/api/upload', upload.single('image'), async (req, res) => {
+  // `req.file` contiene la información del archivo subido
+  const {name,price,table,description} = req.body
+  console.log(name)
+  console.log(price)
+  console.log(table)
+  console.log(description)
+
+  // Mover el archivo subido a la carpeta deseada
+  const __dirname = 'static/'
+  const uploadedFile = req.file;
+  const baseFilename = path.parse(uploadedFile.originalname).name;
+
+  const data = {
+    name: name,
+    price: price,
+    description: description,
+    imgURL: baseFilename
+  };
+  const usersCollection = database.collection(table);
+  await usersCollection.insertOne(data);
+
+  if (!req.file) {
+    return res.status(400).send('No se proporcionó ningún archivo');
+  }
+  
+  // Definir la ruta donde se guardará el archivo
+  const destination = path.join(__dirname, '', uploadedFile.originalname);
+
+  // Mover el archivo subido a la carpeta deseada
+  fs.rename(uploadedFile.path, destination, (err) => {
+    if (err) {
+      console.error('Error al mover el archivo:', err);
+      return res.status(500).send('Error al guardar el archivo');
+    }
+
+    // El archivo se ha guardado correctamente
+    console.log('Archivo subido y guardado:', uploadedFile.originalname);
+    res.send('Archivo subido correctamente');
+  });
+});
 
 app.post('/api/users', async (req, res) => {
   try {
@@ -79,9 +138,10 @@ app.post('/api/users', async (req, res) => {
       const comp = await bcrypt.compare(password, result.password)
       if (comp) {
         console.log("Usuario Correcto")
-        // res.status(200).json({ok:true, data: tokenPayload, message: 'parsecorrect'})
-        loggedUser = true
+        Verification.user = username
+        Verification.privilege = result.privilege
         res.status(200).json({ message: 'parsecorrect', token: 'BRZ2024', privilege: result.privilege });
+        // loggedUser = true
       } else {
         console.log("Contraseña incorrecta incorrecto")
         res.status(200).json({ message: 'parseincorrect', token: 'BRZ2024N' });
@@ -116,18 +176,17 @@ app.delete('/api/delete', async (req, res) => {
 });
 
 app.post('/api/addproduct', async (req, res) => {
-  const { name, price, table, description, fileName } = req.body;
+  const { name, price, table, description } = req.body;
   
   try {
-    const partes = fileName.split(/\\+/);
-    const ultimoValor = partes.pop();
-    console.log(fileName)
-    console.log(ultimoValor)
+    // const partes = fileName.split(/\\+/);
+    // const ultimoValor = partes.pop();
+    // console.log(fileName)
+    // console.log(ultimoValor)
     const data = {
       name: name,
       price: price,
-      description: description,
-      imgURL: ultimoValor
+      description: description
     };
     const usersCollection = database.collection(table);
     await usersCollection.insertOne(data);
