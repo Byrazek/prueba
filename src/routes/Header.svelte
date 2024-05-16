@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from "svelte";
   import {API_URL} from '/src/config.js'
+	// import logo from '../../static/logo.jpeg'
 	var logged = false
 
   async function usuarios() {
@@ -32,7 +33,7 @@
 		<div class="flex lg:flex-1">
 			<a href="/" class="-m-1.5 p-1.5">
 				<span class="sr-only">Nijolinijolan</span>
-				<img class="h-8 w-auto" src="https://i.postimg.cc/vmWKf5Pn/logo.jpg" alt="logo">
+				<img class="h-8 w-auto" src="/src/lib/images/logo.jpeg" alt="logo">
 			</a>
 		</div>
 		<div class="flex lg:hidden">

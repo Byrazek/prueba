@@ -80,7 +80,7 @@ app.use(cors())
 app.use(express.json())
 
 const upload = multer({
-  dest: 'static/' // Carpeta donde se guardarán los archivos subidos
+  dest: 'src/lib/images/' // Carpeta donde se guardarán los archivos subidos
 });
 
 app.post('/api/upload', upload.single('image'), async (req, res) => {
@@ -92,7 +92,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
   console.log(description)
 
   // Mover el archivo subido a la carpeta deseada
-  const __dirname = 'static/'
+  const __dirname = 'src/lib/images/'
   const uploadedFile = req.file;
   const baseFilename = path.parse(uploadedFile.originalname).name;
 
@@ -100,7 +100,7 @@ app.post('/api/upload', upload.single('image'), async (req, res) => {
     name: name,
     price: price,
     description: description,
-    imgURL: baseFilename
+    imgURL: uploadedFile.originalname
   };
   const usersCollection = database.collection(table);
   await usersCollection.insertOne(data);

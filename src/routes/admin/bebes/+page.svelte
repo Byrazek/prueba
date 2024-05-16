@@ -1,6 +1,4 @@
 <script>
-// @ts-nocheck
-
   import Layout from '../../layoutAdmin.svelte'
   import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
   import { onMount } from "svelte";
@@ -21,7 +19,7 @@
   async function deleteProduct(id) {
     try {
       const table = 'bebes'
-      let ruta = 'api/delete?id=' + id + '&table=' + table;
+      let ruta = '/api/delete?id=' + id + '&table=' + table;
       const res = await fetch(API_URL + ruta, {
         method: 'DELETE'
       });

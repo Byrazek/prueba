@@ -30,7 +30,7 @@
 <Layout>
   <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8" style="margin-bottom: 13%; margin-top: 7%;">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-      <img class="mx-auto h-10 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+      <img class="mx-auto h-10 w-auto" src="/src/lib/images/logo.jpeg" alt="Your Company">
       <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Formulario de Registro</h2>
     </div>
   
@@ -39,7 +39,7 @@
         <div>
           <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
           <div class="mt-2">
-            <input id="email" bind:value={formData.email} type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="email" bind:value={formData.email} type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-stone-400 sm:text-sm sm:leading-6">
           </div>
         </div>
   
@@ -48,7 +48,7 @@
             <label for="password2" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
           </div>
           <div class="mt-2">
-            <input id="password2" bind:value={formData.password} type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="password2" bind:value={formData.password} type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-stone-400 sm:text-sm sm:leading-6">
           </div>
         </div>
   
@@ -57,13 +57,13 @@
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Confirmar contraseña</label>
           </div>
           <div class="mt-2">
-            <input id="password" bind:value={formData.passwordConfirm} type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <input id="password" bind:value={formData.passwordConfirm} type="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-stone-400 sm:text-sm sm:leading-6">
           </div>
         </div>
   
         <div>
           
-          <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+          <button type="submit" class="flex w-full justify-center rounded-md bg-stone-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-stone-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-stone-500">
             {#if spinner}
             <div role="status">
               <svg aria-hidden="true" class="inline w-4 h-4 text-gray-200 animate-spin light:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

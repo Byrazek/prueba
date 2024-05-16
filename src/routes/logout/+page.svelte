@@ -9,7 +9,7 @@
     if (typeof window !== 'undefined') {
       window.location.href = '/'
     }
-  },1000)
+  },500)
 </script>
 
 <h1 class="text-center text-3xl text-gray-400">Has cerrado sesión</h1>

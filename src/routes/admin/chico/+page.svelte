@@ -1,6 +1,4 @@
 <script>
-  // @ts-nocheck
-  
     import Layout from '../../layoutAdmin.svelte'
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { onMount } from "svelte";
@@ -25,9 +23,6 @@
         const res = await fetch(API_URL + ruta, {
           method: 'DELETE'
         });
-        if (res.ok) {
-          window.location.href = '/admin/chico'
-        }
       } catch (error) {
         console.log(error)
         console.log("Se ha producido un error al conectarse al servidor. Intentalo de nuevo o contacta con un administrador")

@@ -1,17 +1,15 @@
 <script>
-  // @ts-nocheck
-  
     import Layout from '../../layoutAdmin.svelte'
     import { Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell } from 'flowbite-svelte';
     import { onMount } from "svelte";
     import {API_URL} from '/src/config.js'
-    let bebes = []
+    let chica = []
   
     function babys() {
       fetch(API_URL + "/api/chica")
       .then(response=>response.json())
       .then(data=>{
-        bebes = data
+        chica = data
       })
     }
     onMount(async()=>{
@@ -49,7 +47,7 @@
           </TableHeadCell>
         </TableHead>
         <TableBody tableBodyClass="divide-y">
-          {#each bebes as product}
+          {#each chica as product}
           <TableBodyRow>
               <TableBodyCell>{product.name}</TableBodyCell>
               <TableBodyCell>{product.price}€</TableBodyCell>
